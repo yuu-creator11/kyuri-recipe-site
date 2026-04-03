@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>西三河きゅうりレシピ</title>
+  <meta name="description" content="JA西三河きゅうり部会が届ける、旬のきゅうりを使った絶品レシピ集。漬物・和え物・炒め物・スープまで、毎日の食卓に役立つレシピをご紹介します。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    /* ==================== CSS変数（カラー管理） ==================== */
+    :root {
+      --color-main: #52B788;
+      --color-accent: #40916C;
+      --color-dark: #1B4332;
+      --color-light-green: #D8F3DC;
+      --color-bg: #F8FFF4;
+      --color-white: #FFFFFF;
+      --color-text: #2D3A2E;
+      --color-text-muted: #6B8C72;
+      --color-card-bg: #FFFFFF;
+      --shadow-sm: 0 2px 8px rgba(64, 145, 108, 0.12);
+      --shadow-md: 0 4px 20px rgba(64, 145, 108, 0.18);
+      --shadow-lg: 0 8px 40px rgba(64, 145, 108, 0.22);
+      --radius: 16px;
+      --radius-sm: 8px;
+      --transition: 0.3s ease;
+    }
+
+    /* ==================== リセット・基本スタイル ==================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ==================== スクロールアニメーション ==================== */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .fade-in-delay-1 { transition-delay: 0.1s; }
+    .fade-in-delay-2 { transition-delay: 0.2s; }
+    .fade-in-delay-3 { transition-delay: 0.3s; }
+
+    /* ==================== ナビゲーションバー ==================== */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background var(--transition), box-shadow var(--transition), padding var(--transition);
+    }
+
+    .nav.scrolled {
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      box-shadow: var(--shadow-sm);
+      padding: 12px 24px;
+    }
+
+    .nav-logo {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--color-white);
+      letter-spacing: 0.02em;
+      transition: color var(--transition);
+    }
+
+    .nav.scrolled .nav-logo {
+      color: var(--color-accent);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.9);
+      padding: 6px 12px;
+      border-radius: 20px;
+      transition: all var(--transition);
+    }
+
+    .nav.scrolled .nav-links a {
+      color: var(--color-text);
+    }
+
+    .nav-links a:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .nav.scrolled .nav-links a:hover {
+      background: var(--color-light-green);
+      color: var(--color-accent);
+    }
+
+    .nav-instagram-btn {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--color-white) !important;
+      background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      padding: 8px 16px !important;
+      border-radius: 20px !important;
+    }
+
+    .nav-instagram-btn:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+      background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888) !important;
+    }
+
+    .nav-instagram-btn .material-icons {
+      font-size: 16px;
+    }
+
+    /* ハンバーガーメニュー（スマホ） */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--color-white);
+      border-radius: 2px;
+      transition: all var(--transition);
+    }
+
+    .nav.scrolled .hamburger span {
+      background: var(--color-accent);
+    }
+
+    /* ==================== Hero セクション ==================== */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(160deg, #1B4332 0%, #2D6A4F 35%, #52B788 70%, #95D5B2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 24px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 装飾的な背景サークル */
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.04);
+      top: -200px;
+      right: -200px;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.04);
+      bottom: -100px;
+      left: -100px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: var(--color-white);
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 6px 16px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+      backdrop-filter: blur(4px);
+    }
+
+    .hero-badge .material-icons {
+      font-size: 14px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 6vw, 3.2rem);
+      font-weight: 700;
+      color: var(--color-white);
+      line-height: 1.3;
+      word-break: keep-all;
+      margin-bottom: 20px;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .hero-sub {
+      font-size: clamp(0.95rem, 2.5vw, 1.1rem);
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 40px;
+      line-height: 1.8;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--color-white);
+      color: var(--color-accent);
+      font-size: 1rem;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: 50px;
+      box-shadow: var(--shadow-md);
+      transition: all var(--transition);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--color-white);
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 14px 28px;
+      border-radius: 50px;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      transition: all var(--transition);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.8);
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      margin-top: 56px;
+      flex-wrap: wrap;
+    }
+
+    .hero-stat {
+      text-align: center;
+    }
+
+    .hero-stat-num {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--color-white);
+      display: block;
+    }
+
+    .hero-stat-label {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    /* スクロール促進インジケーター */
+    .scroll-indicator {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 0.75rem;
+      animation: bounce 2s infinite;
+    }
+
+    .scroll-indicator .material-icons {
+      font-size: 20px;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(8px); }
+    }
+
+    /* ==================== 共通セクションスタイル ==================== */
+    .section {
+      padding: 80px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    .section-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-main);
+      background: var(--color-light-green);
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      color: var(--color-dark);
+      word-break: keep-all;
+      line-height: 1.4;
+    }
+
+    .section-header p {
+      font-size: 1rem;
+      color: var(--color-text-muted);
+      margin-top: 12px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ==================== レシピカテゴリセクション ==================== */
+    .recipes-section {
+      padding: 80px 24px;
+    }
+
+    /* カテゴリタブ */
+    .category-tabs {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+
+    .tab-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      background: var(--color-white);
+      border: 2px solid var(--color-light-green);
+      padding: 10px 20px;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .tab-btn:hover,
+    .tab-btn.active {
+      background: var(--color-main);
+      border-color: var(--color-main);
+      color: var(--color-white);
+    }
+
+    .tab-btn .material-icons {
+      font-size: 18px;
+    }
+
+    /* レシピグリッド */
+    .recipe-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .recipe-panel {
+      display: none;
+    }
+
+    .recipe-panel.active {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    /* レシピカード */
+    .recipe-card {
+      background: var(--color-card-bg);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: all var(--transition);
+      cursor: pointer;
+    }
+
+    .recipe-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .recipe-card-thumb {
+      height: 180px;
+      background: linear-gradient(135deg, var(--color-light-green), var(--color-main));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .recipe-card-thumb::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.05);
+    }
+
+    .recipe-card-thumb .material-icons {
+      font-size: 60px;
+      color: rgba(255,255,255,0.8);
+    }
+
+    /* カードサムネイルの色バリエーション */
+    .thumb-pickles { background: linear-gradient(135deg, #95D5B2, #52B788); }
+    .thumb-stir    { background: linear-gradient(135deg, #B7E4C7, #40916C); }
+    .thumb-soup    { background: linear-gradient(135deg, #74C69D, #1B4332); }
+
+    .recipe-card-body {
+      padding: 20px;
+    }
+
+    .recipe-card-category {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--color-main);
+      letter-spacing: 0.06em;
+      margin-bottom: 8px;
+    }
+
+    .recipe-card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--color-dark);
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+
+    .recipe-card-desc {
+      font-size: 0.85rem;
+      color: var(--color-text-muted);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .recipe-card-meta {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .recipe-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.78rem;
+      color: var(--color-text-muted);
+    }
+
+    .recipe-meta-item .material-icons {
+      font-size: 14px;
+      color: var(--color-main);
+    }
+
+    .recipe-card-badge {
+      margin-left: auto;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--color-white);
+      background: var(--color-main);
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    .recipe-card-badge.easy { background: var(--color-main); }
+    .recipe-card-badge.medium { background: #E9C46A; }
+
+    .recipe-card-insta-link {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--color-light-green);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--color-main);
+      transition: color var(--transition);
+      text-decoration: none;
+    }
+
+    .recipe-card-insta-link:hover {
+      color: var(--color-accent);
+    }
+
+    .recipe-card-insta-link .material-icons {
+      font-size: 15px;
+    }
+
+    /* ==================== Instagramセクション ==================== */
+    .instagram-section {
+      background: linear-gradient(160deg, var(--color-dark) 0%, var(--color-accent) 100%);
+      padding: 80px 24px;
+      text-align: center;
+    }
+
+    .instagram-inner {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .instagram-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    }
+
+    .instagram-icon .material-icons {
+      font-size: 40px;
+      color: var(--color-white);
+    }
+
+    .instagram-section h2 {
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      font-weight: 700;
+      color: var(--color-white);
+      word-break: keep-all;
+      margin-bottom: 16px;
+    }
+
+    .instagram-section p {
+      color: rgba(255,255,255,0.8);
+      font-size: 0.95rem;
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+
+    .instagram-account {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--color-white);
+      opacity: 0.9;
+      margin-bottom: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    /* サンプル投稿グリッド（インスタ風プレビュー） */
+    .instagram-preview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      max-width: 480px;
+      margin: 0 auto 40px;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .insta-preview-item {
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, var(--color-light-green), var(--color-main));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .insta-preview-item:nth-child(2) { background: linear-gradient(135deg, #95D5B2, #40916C); }
+    .insta-preview-item:nth-child(3) { background: linear-gradient(135deg, #B7E4C7, #52B788); }
+    .insta-preview-item:nth-child(4) { background: linear-gradient(135deg, #52B788, #1B4332); }
+    .insta-preview-item:nth-child(5) { background: linear-gradient(135deg, #74C69D, #2D6A4F); }
+    .insta-preview-item:nth-child(6) { background: linear-gradient(135deg, #D8F3DC, #52B788); }
+
+    .insta-preview-item .material-icons {
+      font-size: 36px;
+      color: rgba(255,255,255,0.7);
+    }
+
+    .insta-preview-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background var(--transition);
+    }
+
+    .insta-preview-item:hover .insta-preview-overlay {
+      background: rgba(0,0,0,0.2);
+    }
+
+    .btn-instagram {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Noto Sans JP', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-white);
+      background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      padding: 16px 32px;
+      border-radius: 50px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      transition: all var(--transition);
+    }
+
+    .btn-instagram:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    }
+
+    .btn-instagram .material-icons {
+      font-size: 20px;
+    }
+
+    /* ==================== CTAセクション ==================== */
+    .cta-section {
+      padding: 80px 24px;
+      text-align: center;
+    }
+
+    .cta-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      background: var(--color-white);
+      border-radius: 24px;
+      padding: 56px 40px;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--color-light-green);
+    }
+
+    .cta-emoji {
+      font-size: 3rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .cta-inner h2 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--color-dark);
+      word-break: keep-all;
+      margin-bottom: 12px;
+    }
+
+    .cta-inner p {
+      font-size: 0.95rem;
+      color: var(--color-text-muted);
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+
+    /* ==================== フッター ==================== */
+    .footer {
+      background: var(--color-dark);
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      padding: 40px 24px;
+    }
+
+    .footer-logo {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--color-white);
+      margin-bottom: 12px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .footer-links a {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.6);
+      transition: color var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--color-main);
+    }
+
+    .footer-copy {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* ==================== レスポンシブ（スマホ最優先） ==================== */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(27, 67, 50, 0.97);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        z-index: 999;
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        font-size: 1.1rem;
+        color: var(--color-white) !important;
+      }
+
+      .nav-links .nav-instagram-btn {
+        font-size: 1rem;
+      }
+
+      .hamburger {
+        display: flex;
+        z-index: 1001;
+      }
+
+      .hamburger.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      .hamburger.active span:nth-child(2) {
+        opacity: 0;
+      }
+      .hamburger.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+
+      .about-inner {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        text-align: center;
+      }
+
+      .about-avatar {
+        width: 140px;
+        height: 140px;
+      }
+
+      .about-tags {
+        justify-content: center;
+      }
+
+      .instagram-preview-grid {
+        max-width: 320px;
+      }
+
+      .cta-inner {
+        padding: 40px 24px;
+      }
+
+      .hero-stats {
+        gap: 24px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .section {
+        padding: 60px 16px;
+      }
+
+      .recipe-panel.active {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== ナビゲーションバー ==================== -->
+  <nav class="nav" id="navbar">
+    <div class="nav-logo">西三河きゅうりレシピ</div>
+
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#recipes">レシピ一覧</a></li>
+      <li><a href="#instagram">Instagram</a></li>
+      <li>
+        <a href="https://www.instagram.com/nishimikawa_kyuri" target="_blank" rel="noopener noreferrer" class="nav-instagram-btn">
+          <span class="material-icons">photo_camera</span>
+          フォローする
+        </a>
+      </li>
+    </ul>
+
+    <div class="hamburger" id="hamburger" onclick="toggleMenu()" aria-label="メニュー">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <!-- ==================== Hero セクション ==================== -->
+  <section class="hero" id="top">
+    <div class="hero-content">
+      <div class="hero-badge fade-in">
+        <span class="material-icons">location_on</span>
+        愛知県西三河 JA西三河きゅうり部会
+      </div>
+
+      <h1 class="fade-in fade-in-delay-1">
+        みずみずしいきゅうりで<br>毎日の食卓をもっと豊かに
+      </h1>
+
+      <p class="hero-sub fade-in fade-in-delay-2">
+        JA西三河きゅうり部会が届ける、<br>
+        旬の味をそのまま活かしたレシピをご紹介します。
+      </p>
+
+      <div class="hero-btns fade-in fade-in-delay-3">
+        <a href="#recipes" class="btn-primary">
+          <span class="material-icons">menu_book</span>
+          レシピをみる
+        </a>
+        <a href="https://www.instagram.com/nishimikawa_kyuri" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+          <span class="material-icons">photo_camera</span>
+          Instagram
+        </a>
+      </div>
+
+      <div class="hero-stats fade-in">
+        <div class="hero-stat">
+          <span class="hero-stat-num">3種</span>
+          <span class="hero-stat-label">レシピカテゴリ</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">西三河</span>
+          <span class="hero-stat-label">産地直送</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-indicator">
+      <span class="material-icons">expand_more</span>
+    </div>
+  </section>
+
+  <!-- ==================== レシピカテゴリセクション ==================== -->
+  <section class="recipes-section" id="recipes">
+    <div class="section-header fade-in">
+      <span class="section-label">RECIPES</span>
+      <h2>カテゴリ別レシピ一覧</h2>
+      <p>漬物から炒め物、スープまで。きゅうりの可能性を広げるレシピを集めました。</p>
+    </div>
+
+    <!-- カテゴリタブ -->
+    <div class="category-tabs fade-in">
+      <button class="tab-btn active" onclick="switchTab('pickles', this)">
+        <span class="material-icons">set_meal</span>
+        漬物・和え物
+      </button>
+      <button class="tab-btn" onclick="switchTab('stir', this)">
+        <span class="material-icons">outdoor_grill</span>
+        炒め物・焼き
+      </button>
+      <button class="tab-btn" onclick="switchTab('soup', this)">
+        <span class="material-icons">soup_kitchen</span>
+        スープ・汁物
+      </button>
+    </div>
+
+    <!-- 漬物・和え物 -->
+    <div id="panel-pickles" class="recipe-panel active">
+      <div class="recipe-card fade-in">
+        <div class="recipe-card-thumb thumb-pickles">
+          <span class="material-icons">set_meal</span>
+        </div>
+        <div class="recipe-card-body">
+          <p class="recipe-card-category">漬物・和え物</p>
+          <h3 class="recipe-card-title">きゅうりユッケ</h3>
+          <p class="recipe-card-desc">コチュジャンとごま油の香りが食欲をそそる、やみつき韓国風レシピ。卵黄をトッピングして完成。</p>
+          <div class="recipe-card-meta">
+            <span class="recipe-meta-item">
+              <span class="material-icons">schedule</span>
+              15分
+            </span>
+            <span class="recipe-meta-item">
+              <span class="material-icons">person</span>
+              2人分
+            </span>
+            <span class="recipe-card-badge easy">かんたん</span>
+          </div>
+          <a href="https://www.instagram.com/p/DWbZQwYAWMI/" target="_blank" rel="noopener noreferrer" class="recipe-card-insta-link">
+            <span class="material-icons">photo_camera</span>
+            Instagramで見る
+          </a>
+        </div>
+      </div>
+
+      <div class="recipe-card fade-in fade-in-delay-1">
+        <div class="recipe-card-thumb thumb-pickles" style="background: linear-gradient(135deg, #B7E4C7, #52B788);">
+          <span class="material-icons">water_drop</span>
+        </div>
+        <div class="recipe-card-body">
+          <p class="recipe-card-category">漬物・和え物</p>
+          <h3 class="recipe-card-title">グーパンめんつゆ漬け</h3>
+          <p class="recipe-card-desc">きゅうりを叩いてめんつゆと梅干しで漬けるだけ。冷蔵庫で30分〜1時間でご飯にもビールにも合う一品。</p>
+          <div class="recipe-card-meta">
+            <span class="recipe-meta-item">
+              <span class="material-icons">schedule</span>
+              40分（漬け込み含む）
+            </span>
+            <span class="recipe-meta-item">
+              <span class="material-icons">person</span>
+              2〜3人分
+            </span>
+            <span class="recipe-card-badge easy">かんたん</span>
+          </div>
+          <a href="https://www.instagram.com/p/DWBu930AaTc/" target="_blank" rel="noopener noreferrer" class="recipe-card-insta-link">
+            <span class="material-icons">photo_camera</span>
+            Instagramで見る
+          </a>
+        </div>
+      </div>
+
+      <div class="recipe-card fade-in fade-in-delay-2">
+        <div class="recipe-card-thumb thumb-pickles" style="background: linear-gradient(135deg, #D8F3DC, #40916C);">
+          <span class="material-icons">rice_bowl</span>
+        </div>
+        <div class="recipe-card-body">
+          <p class="recipe-card-category">漬物・和え物</p>
+          <h3 class="recipe-card-title">きゅうりたっぷり！鮭ちらし</h3>
+          <p class="recipe-card-desc">塩もみきゅうりと油ののった鮭の相性は抜群。錦糸玉子・きぬさやを添えて華やかに盛り付け。</p>
+          <div class="recipe-card-meta">
+            <span class="recipe-meta-item">
+              <span class="material-icons">schedule</span>
+              20分
+            </span>
+            <span class="recipe-meta-item">
+              <span class="material-icons">person</span>
+              2人分
+            </span>
+            <span class="recipe-card-badge easy">かんたん</span>
+          </div>
+          <a href="https://www.instagram.com/p/DVJL3KDgSyb/" target="_blank" rel="noopener noreferrer" class="recipe-card-insta-link">
+            <span class="material-icons">photo_camera</span>
+            Instagramで見る
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- 炒め物・焼き -->
+    <div id="panel-stir" class="recipe-panel">
+      <div class="recipe-card fade-in">
+        <div class="recipe-card-thumb thumb-stir">
+          <span class="material-icons">outdoor_grill</span>
+        </div>
+        <div class="recipe-card-body">
+          <p class="recipe-card-category">炒め物・焼き</p>
+          <h3 class="recipe-card-title">W・B・C 炒め</h3>
+          <p class="recipe-card-desc">わさび（W）・ベーコン（B）・きゅうり（C）の炒め物。わさびの爽やかな香りと醤油の香ばしさがピッタリ。</p>
+          <div class="recipe-card-meta">
+            <span class="recipe-meta-item">
+              <span class="material-icons">schedule</span>
+              15分
+            </span>
+            <span class="recipe-meta-item">
+              <span class="material-icons">person</span>
+              1〜2人分
+            </span>
+            <span class="recipe-card-badge easy">かんたん</span>
+          </div>
+          <a href="https://www.instagram.com/p/DVqHBodAZN8/" target="_blank" rel="noopener noreferrer" class="recipe-card-insta-link">
+            <span class="material-icons">photo_camera</span>
+            Instagramで見る
+          </a>
+        </div>
+      </div>
+
+      <div class="recipe-card fade-in fade-in-delay-1">
+        <div class="recipe-card-thumb thumb-stir" style="background: linear-gradient(135deg, #95D5B2, #2D6A4F);">
+          <span class="material-icons">lunch_dining</span>
+        </div>
+        <div class="recipe-card-body">
+          <p class="recipe-card-category">炒め物・焼き</p>
+          <h3 class="recipe-card-title">きゅうりギョーザ</h3>
+          <p class="recipe-card-desc">きゅうりとジューシーな豚ひき肉がぴったりな餃子。想像以上においしい！作り方も簡単。</p>
+          <div class="recipe-card-meta">
+            <span class="recipe-meta-item">
+              <span class="material-icons">schedule</span>
+              30分
+            </span>
+            <span class="recipe-meta-item">
+              <span class="material-icons">person</span>
+              24個分
+            </span>
+            <span class="recipe-card-badge medium">ふつう</span>
+          </div>
+          <a href="https://www.instagram.com/p/DVnxKdDAZW1/" target="_blank" rel="noopener noreferrer" class="recipe-card-insta-link">
+            <span class="material-icons">photo_camera</span>
+            Instagramで見る
+          </a>
+        </div>
+      </div>
+
+      <div class="recipe-card fade-in fade-in-delay-2">
+        <div class="recipe-card-thumb thumb-stir" style="background: linear-gradient(135deg, #D8F3DC, #40916C);">
+          <span class="material-icons">local_fire_department</span>
+        </div>
+        <div class="recipe-card-body">
+          <p class="recipe-card-category">炒め物・焼き</p>
+          <h3 class="recipe-card-title">鶏肉のポン酢マヨ炒め</h3>
+          <p class="recipe-card-desc">ポン酢とマヨネーズがきゅうりにピッタリ。カリカリ鶏肉とシャキシャキきゅうりの食感がクセになる。</p>
+          <div class="recipe-card-meta">
+            <span class="recipe-meta-item">
+              <span class="material-icons">schedule</span>
+              15分
+            </span>
+            <span class="recipe-meta-item">
+              <span class="material-icons">person</span>
+              2人分
+            </span>
+            <span class="recipe-card-badge easy">かんたん</span>
+          </div>
+          <a href="https://www.instagram.com/p/DVWBK7ugWlc/" target="_blank" rel="noopener noreferrer" class="recipe-card-insta-link">
+            <span class="material-icons">photo_camera</span>
+            Instagramで見る
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- スープ・汁物 -->
+    <div id="panel-soup" class="recipe-panel">
+      <div class="recipe-card fade-in">
+        <div class="recipe-card-thumb thumb-soup">
+          <span class="material-icons">ramen_dining</span>
+        </div>
+        <div class="recipe-card-body">
+          <p class="recipe-card-category">スープ・汁物</p>
+          <h3 class="recipe-card-title">台湾きゅうりラーメン</h3>
+          <p class="recipe-card-desc">名古屋メシ「台湾ラーメン」にきゅうりを入れた本格派。唐辛子の辛みと旨みが効いた台湾ミンチにきゅうりがピッタリ。</p>
+          <div class="recipe-card-meta">
+            <span class="recipe-meta-item">
+              <span class="material-icons">schedule</span>
+              20分
+            </span>
+            <span class="recipe-meta-item">
+              <span class="material-icons">person</span>
+              2人分
+            </span>
+            <span class="recipe-card-badge medium">ふつう</span>
+          </div>
+          <a href="https://www.instagram.com/p/DUfxG2jgUdq/" target="_blank" rel="noopener noreferrer" class="recipe-card-insta-link">
+            <span class="material-icons">photo_camera</span>
+            Instagramで見る
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== Instagramセクション ==================== -->
+  <section class="instagram-section" id="instagram">
+    <div class="instagram-inner">
+      <div class="instagram-icon fade-in">
+        <span class="material-icons">photo_camera</span>
+      </div>
+
+      <h2 class="fade-in fade-in-delay-1">
+        もっとレシピをみたいなら<br>Instagramをフォロー
+      </h2>
+
+      <p class="fade-in fade-in-delay-2">
+        毎週新しいレシピを更新中！<br>
+        旬のきゅうり情報・産地の様子も発信しています。
+      </p>
+
+      <div class="instagram-account fade-in fade-in-delay-2">
+        <span class="material-icons">alternate_email</span>
+        nishimikawa_kyuri
+      </div>
+
+      <!-- インスタ風プレビューグリッド -->
+      <div class="instagram-preview-grid fade-in fade-in-delay-3">
+        <div class="insta-preview-item">
+          <span class="material-icons">eco</span>
+          <div class="insta-preview-overlay"></div>
+        </div>
+        <div class="insta-preview-item">
+          <span class="material-icons">set_meal</span>
+          <div class="insta-preview-overlay"></div>
+        </div>
+        <div class="insta-preview-item">
+          <span class="material-icons">agriculture</span>
+          <div class="insta-preview-overlay"></div>
+        </div>
+        <div class="insta-preview-item">
+          <span class="material-icons">outdoor_grill</span>
+          <div class="insta-preview-overlay"></div>
+        </div>
+        <div class="insta-preview-item">
+          <span class="material-icons">soup_kitchen</span>
+          <div class="insta-preview-overlay"></div>
+        </div>
+        <div class="insta-preview-item">
+          <span class="material-icons">favorite</span>
+          <div class="insta-preview-overlay"></div>
+        </div>
+      </div>
+
+      <a href="https://www.instagram.com/nishimikawa_kyuri" target="_blank" rel="noopener noreferrer" class="btn-instagram fade-in">
+        <span class="material-icons">photo_camera</span>
+        Instagramでフォローする
+      </a>
+    </div>
+  </section>
+
+  <!-- ==================== CTAセクション ==================== -->
+  <section class="cta-section">
+    <div class="cta-inner fade-in">
+      <span class="cta-emoji">🥒</span>
+      <h2>西三河きゅうりのレシピで<br>毎日の食卓をもっと豊かに</h2>
+      <p>
+        JA西三河きゅうり部会が、<br>
+        本当においしい食べ方をInstagramで毎週発信しています。
+      </p>
+      <a href="https://www.instagram.com/nishimikawa_kyuri" target="_blank" rel="noopener noreferrer" class="btn-instagram">
+        <span class="material-icons">photo_camera</span>
+        Instagramをフォローする
+      </a>
+    </div>
+  </section>
+
+  <!-- ==================== フッター ==================== -->
+  <footer class="footer">
+    <div class="footer-logo">西三河きゅうりレシピ</div>
+    <nav class="footer-links">
+      <a href="#top">トップ</a>
+      <a href="#recipes">レシピ一覧</a>
+      <a href="https://www.instagram.com/nishimikawa_kyuri" target="_blank" rel="noopener noreferrer">Instagram</a>
+    </nav>
+    <p class="footer-copy">
+      &copy; 2026 西三河きゅうりレシピ / JA西三河きゅうり部会
+    </p>
+  </footer>
+
+  <!-- ==================== JavaScript ==================== -->
+  <script>
+    // ナビバーのスクロール検知
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+
+    // ハンバーガーメニューの開閉
+    function toggleMenu() {
+      const hamburger = document.getElementById('hamburger');
+      const navLinks = document.getElementById('navLinks');
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('open');
+    }
+
+    // メニューリンクをクリックしたら閉じる
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('hamburger').classList.remove('active');
+        document.getElementById('navLinks').classList.remove('open');
+      });
+    });
+
+    // カテゴリタブの切り替え
+    function switchTab(category, btn) {
+      // すべてのパネルを非表示
+      document.querySelectorAll('.recipe-panel').forEach(panel => {
+        panel.classList.remove('active');
+      });
+      // すべてのタブをリセット
+      document.querySelectorAll('.tab-btn').forEach(b => {
+        b.classList.remove('active');
+      });
+      // 選択したパネルとタブをアクティブに
+      document.getElementById('panel-' + category).classList.add('active');
+      btn.classList.add('active');
+
+      // フェードインをリセットして再トリガー
+      document.querySelectorAll('#panel-' + category + ' .fade-in').forEach(el => {
+        el.classList.remove('visible');
+        setTimeout(() => observeElements(), 50);
+      });
+    }
+
+    // スクロールアニメーション（Intersection Observer）
+    function observeElements() {
+      const targets = document.querySelectorAll('.fade-in:not(.visible)');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      targets.forEach(el => observer.observe(el));
+    }
+
+    // ページロード時にアニメーション開始
+    document.addEventListener('DOMContentLoaded', () => {
+      // Heroセクションは即座に表示
+      document.querySelectorAll('.hero .fade-in').forEach((el, i) => {
+        setTimeout(() => el.classList.add('visible'), i * 200);
+      });
+
+      // その他のセクションはスクロールで表示
+      observeElements();
+    });
+  </script>
+</body>
+</html>
