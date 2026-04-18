@@ -27,6 +27,11 @@
       --radius: 16px;
       --radius-sm: 8px;
       --transition: 0.3s ease;
+      /* 西尾市カラー（抹茶の里） */
+      --color-matcha: #4A6741;
+      --color-matcha-light: #E8EDD4;
+      --color-nishio-gold: #9B7E3A;
+      --color-washi: #F5F1E4;
     }
 
     /* ==================== リセット・基本スタイル ==================== */
@@ -184,7 +189,7 @@
     /* ==================== Hero セクション ==================== */
     .hero {
       min-height: 100vh;
-      background: linear-gradient(160deg, #1B4332 0%, #2D6A4F 35%, #52B788 70%, #95D5B2 100%);
+      background: linear-gradient(160deg, #1A3828 0%, #2D5A40 30%, #3D7A58 65%, #52B788 100%);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -194,27 +199,27 @@
       overflow: hidden;
     }
 
-    /* 装飾的な背景サークル */
+    /* 和柄パターン（市松風） */
     .hero::before {
       content: '';
       position: absolute;
-      width: 600px;
-      height: 600px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.04);
-      top: -200px;
-      right: -200px;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(45deg, transparent, transparent 24px, rgba(255,255,255,0.025) 24px, rgba(255,255,255,0.025) 48px),
+        repeating-linear-gradient(-45deg, transparent, transparent 24px, rgba(255,255,255,0.025) 24px, rgba(255,255,255,0.025) 48px);
+      pointer-events: none;
     }
 
     .hero::after {
       content: '';
       position: absolute;
-      width: 400px;
-      height: 400px;
+      width: 500px;
+      height: 500px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.04);
-      bottom: -100px;
-      left: -100px;
+      border: 60px solid rgba(255, 255, 255, 0.03);
+      bottom: -150px;
+      left: -150px;
+      pointer-events: none;
     }
 
     .hero-content {
@@ -591,6 +596,95 @@
       font-size: 15px;
     }
 
+    /* ==================== 西尾市バナー ==================== */
+    .nishio-banner {
+      background: var(--color-washi);
+      border-top: 3px solid var(--color-matcha);
+      border-bottom: 3px solid var(--color-matcha);
+      padding: 40px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .nishio-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%234a6741' fill-opacity='0.05'%3E%3Crect x='0' y='0' width='20' height='20'/%3E%3Crect x='20' y='20' width='20' height='20'/%3E%3C/g%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .nishio-banner-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      position: relative;
+    }
+
+    .nishio-banner-icon {
+      flex-shrink: 0;
+      width: 80px;
+      height: 80px;
+      background: var(--color-matcha);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 4px 16px rgba(74, 103, 65, 0.3);
+    }
+
+    .nishio-banner-text h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--color-matcha);
+      margin-bottom: 6px;
+      letter-spacing: 0.05em;
+    }
+
+    .nishio-banner-text p {
+      font-size: 0.88rem;
+      color: var(--color-text);
+      line-height: 1.8;
+    }
+
+    .nishio-banner-text strong {
+      color: var(--color-matcha);
+      font-weight: 700;
+    }
+
+    .nishio-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .nishio-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--color-white);
+      background: var(--color-matcha);
+      padding: 3px 12px;
+      border-radius: 20px;
+    }
+
+    .nishio-tag.gold {
+      background: var(--color-nishio-gold);
+    }
+
+    @media (max-width: 600px) {
+      .nishio-banner-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+      .nishio-tags {
+        justify-content: center;
+      }
+    }
+
     /* ==================== Instagramセクション ==================== */
     .instagram-section {
       background: linear-gradient(160deg, var(--color-dark) 0%, var(--color-accent) 100%);
@@ -907,7 +1001,7 @@
     <div class="hero-content">
       <div class="hero-badge fade-in">
         <span class="material-icons">location_on</span>
-        愛知県西三河 JA西三河きゅうり部会
+        抹茶の里・愛知県西尾市
       </div>
 
       <h1 class="fade-in fade-in-delay-1">
@@ -916,7 +1010,7 @@
 
       <p class="hero-sub fade-in fade-in-delay-2">
         JA西三河きゅうり部会が届ける、<br>
-        旬の味をそのまま活かしたレシピをご紹介します。
+        西尾市産ブランドきゅうり「三河みどり」を使った絶品レシピをご紹介します。
       </p>
 
       <div class="hero-btns fade-in fade-in-delay-3">
@@ -932,11 +1026,15 @@
 
       <div class="hero-stats fade-in">
         <div class="hero-stat">
-          <span class="hero-stat-num">3種</span>
-          <span class="hero-stat-label">レシピカテゴリ</span>
+          <span class="hero-stat-num">9品</span>
+          <span class="hero-stat-label">レシピ掲載中</span>
         </div>
         <div class="hero-stat">
-          <span class="hero-stat-num">西三河</span>
+          <span class="hero-stat-num">三河みどり</span>
+          <span class="hero-stat-label">ブランドきゅうり</span>
+        </div>
+        <div class="hero-stat">
+          <span class="hero-stat-num">西尾市産</span>
           <span class="hero-stat-label">産地直送</span>
         </div>
       </div>
@@ -946,6 +1044,25 @@
       <span class="material-icons">expand_more</span>
     </div>
   </section>
+
+  <!-- ==================== 西尾市バナー ==================== -->
+  <div class="nishio-banner">
+    <div class="nishio-banner-inner fade-in">
+      <div class="nishio-banner-icon">🍵</div>
+      <div class="nishio-banner-text">
+        <h3>抹茶の里・愛知県西尾市から</h3>
+        <p>
+          西尾市は日本三大抹茶産地のひとつ。豊かな土壌と温暖な気候が育む<strong>ブランドきゅうり「三河みどり」</strong>は、シャキシャキした食感と鮮やかな緑が自慢です。JA西三河きゅうり部会青年部が、地元の旬をそのまま届けます。
+        </p>
+        <div class="nishio-tags">
+          <span class="nishio-tag">🍵 抹茶の里</span>
+          <span class="nishio-tag gold">🥒 三河みどり</span>
+          <span class="nishio-tag">📍 愛知県西尾市</span>
+          <span class="nishio-tag">🌿 JA西三河</span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ==================== レシピカテゴリセクション ==================== -->
   <section class="recipes-section" id="recipes">
@@ -1335,6 +1452,9 @@
   <!-- ==================== フッター ==================== -->
   <footer class="footer">
     <div class="footer-logo">西三河きゅうりレシピ</div>
+    <p style="font-size:0.8rem; color:rgba(255,255,255,0.5); margin-bottom:16px;">
+      🍵 抹茶の里・愛知県西尾市 ／ ブランドきゅうり「三河みどり」
+    </p>
     <nav class="footer-links">
       <a href="#top">トップ</a>
       <a href="#recipes">レシピ一覧</a>
